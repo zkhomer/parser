@@ -14,7 +14,8 @@ app.get('/scrape/:page', async (req, res) => {
     const browser = await puppeteer.launch(
         {
             executablePath: '/usr/bin/chromium-browser',
-            headless: true
+            headless: 'new',
+            args: ["--no-sandbox"]
         }
     );
     const page = await browser.newPage();
