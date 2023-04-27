@@ -1,6 +1,5 @@
 import express from 'express';
 import puppeteer from 'puppeteer';
-import fs from 'fs';
 import cors from 'cors';
 
 const app = express();
@@ -44,11 +43,6 @@ app.get('/scrape/:page', async (req, res) => {
         });
 
         return {productList};
-    });
-
-    fs.writeFile('data.json', JSON.stringify(products), (err) => {
-        if (err) throw err;
-        console.log('Data saved to file');
     });
 
     await browser.close();
