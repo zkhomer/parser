@@ -11,7 +11,12 @@ app.use(cors({
 app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch(
+        {
+            executablePath: '/usr/bin/chromium-browser',
+            headless: true
+        }
+    );
     const page = await browser.newPage();
     await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
