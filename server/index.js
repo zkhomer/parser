@@ -1,6 +1,6 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
-const cors = require('cors');
+import express from 'express';
+import puppeteer from 'puppeteer';
+import cors from 'cors';
 
 const app = express();
 
@@ -12,7 +12,6 @@ app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
 
     const browser = await puppeteer.launch({
-        executablePath: '/usr/bin/chromium-browser',
         headless: 'new'
     });
     const page = await browser.newPage();
@@ -52,7 +51,6 @@ app.get('/scrape/:page', async (req, res) => {
 
     res.send(products);
 });
-
 app.listen(3000, () => {
     console.log('Server listening on port 3000');
 });
