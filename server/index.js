@@ -15,6 +15,7 @@ app.get('/scrape/:page', async (req, res) => {
     try {
         const browser = await puppeteer.launch({
             executablePath: '/usr/bin/google-chrome',
+            headless: "new"
         });
         const page = await browser.newPage();
         await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
