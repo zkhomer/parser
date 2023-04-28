@@ -16,9 +16,8 @@ app.get('/scrape/:page', async (req, res) => {
         headless: 'new'
     });
     const page = await browser.newPage();
-    console.log('ololo')
     await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
-
+    console.log('ololo')
     await page.evaluate(async () => {
         await new Promise((resolve) => {
             let totalHeight = 0;
