@@ -9,57 +9,49 @@ app.use(cors({
 }));
 
 app.get('/scrape/:page', async (req, res) => {
-    try {
-        const pageNumber = parseInt(req.params.page);
 
-        console.log(`Scraping page ${pageNumber}`);
+    const pageNumber = parseInt(req.params.page);
 
+    const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/google-chrome',
+        headless: 'new'
+    });
+    const page = await browser.newPage();
+    await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
-        const browser = await puppeteer.launch({
-            executablePath: '/usr/bin/google-chrome',
-            headless: 'new'
+    await page.evaluate(async () => {
+        await new Promise((resolve) => {
+            let totalHeight = 0;
+            const distance = 100;
+            const scrollInterval = setInterval(() => {
+                const scrollHeight = document.body.scrollHeight;
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                if (totalHeight >= scrollHeight) {
+                    clearInterval(scrollInterval);
+                    resolve();
+                }
+            }, 100);
         });
-        const page = await browser.newPage();
-        await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
+    });
+    const products = await page.evaluate(() => {
+        const productList = [];
 
-        await page.evaluate(async () => {
-            await new Promise((resolve) => {
-                let totalHeight = 0;
-                const distance = 100;
-                const scrollInterval = setInterval(() => {
-                    const scrollHeight = document.body.scrollHeight;
-                    window.scrollBy(0, distance);
-                    totalHeight += distance;
-                    if (totalHeight >= scrollHeight) {
-                        clearInterval(scrollInterval);
-                        resolve();
-                    }
-                }, 100);
-            });
+        const productNodes = document.querySelectorAll('.catalog-grid__cell');
+
+        productNodes.forEach((productNode) => {
+            console.log('it for loop')
+            const name = productNode.querySelector('.goods-tile__title').textContent.trim();
+            const price = productNode.querySelector('.goods-tile__price-value').textContent.trim();
+
+            productList.push({name, price});
         });
-        const products = await page.evaluate(() => {
-            const productList = [];
+        console.log(productList)
+        return productList;
+    });
 
-            const productNodes = document.querySelectorAll('.catalog-grid__cell');
-
-            productNodes.forEach((productNode) => {
-                console.log('it for loop')
-                const name = productNode.querySelector('.goods-tile__title').textContent.trim();
-                const price = productNode.querySelector('.goods-tile__price-value').textContent.trim();
-
-                productList.push({name, price});
-            });
-            console.log(productList)
-            return {productList};
-        });
-
-        await browser.close();
-        res.send(products);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({ error: 'An error occurred' });
-    }
-
+    await browser.close();
+    res.send(products);
 });
 app.listen(3000, () => {
     console.log('Server listening on port 3000');
