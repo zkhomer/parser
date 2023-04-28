@@ -10,9 +10,9 @@ app.use(cors({
 
 app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
-debugger
+
     const browser = await puppeteer.launch({
-        executablePath: '/usr/bin/chromium-browser',
+        executablePath: '/usr/bin/google-chrome',
         headless: 'new'
     });
     const page = await browser.newPage();
