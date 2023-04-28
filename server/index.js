@@ -19,7 +19,8 @@ app.get('/scrape/:page', async (req, res) => {
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
-        await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`, {waitUntil: 'networkidle0'});
+        page.setDefaultNavigationTimeout(0);
+        await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
         const products = await page.evaluate(() => {
             const productList = [];
