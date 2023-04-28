@@ -19,7 +19,7 @@ app.get('/scrape/:page', async (req, res) => {
         const page = await browser.newPage();
         await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
-        await page.waitForSelector('.catalog-grid__cell');
+        await page.waitForSelector('.catalog-grid__cell', {timeout:240000});
 
         const products = await page.evaluate(() => {
             const productList = [];
