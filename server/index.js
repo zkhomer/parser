@@ -19,21 +19,8 @@ app.get('/scrape/:page', async (req, res) => {
         const page = await browser.newPage();
         await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
-        await page.evaluate(async () => {
-            await new Promise((resolve) => {
-                let totalHeight = 0;
-                const distance = 100;
-                const scrollInterval = setInterval(() => {
-                    const scrollHeight = document.body.scrollHeight;
-                    window.scrollBy(0, distance);
-                    totalHeight += distance;
-                    if (totalHeight >= scrollHeight) {
-                        clearInterval(scrollInterval);
-                        resolve();
-                    }
-                }, 100);
-            });
-        });
+        await page.waitForSelector('.catalog-grid__cell');
+
         const products = await page.evaluate(() => {
             const productList = [];
 
@@ -57,7 +44,6 @@ app.get('/scrape/:page', async (req, res) => {
         res.status(500).send('An error occurred while scraping the page');
     }
 });
-
 
 
 app.listen(3000, () => {
