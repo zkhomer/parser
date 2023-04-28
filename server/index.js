@@ -16,6 +16,7 @@ app.get('/scrape/:page', async (req, res) => {
         headless: 'new'
     });
     const page = await browser.newPage();
+    console.log('ololo')
     await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
     await page.evaluate(async () => {
@@ -36,6 +37,7 @@ app.get('/scrape/:page', async (req, res) => {
 
     const products = await page.evaluate(() => {
         const productList = [];
+
         const productNodes = document.querySelectorAll('.catalog-grid__cell');
 
         productNodes.forEach((productNode) => {
@@ -44,12 +46,11 @@ app.get('/scrape/:page', async (req, res) => {
 
             productList.push({name, price});
         });
-
+        console.log(productList)
         return {productList};
     });
 
     await browser.close();
-
     res.send(products);
 });
 app.listen(3000, () => {
