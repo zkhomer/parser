@@ -47,7 +47,7 @@ app.get('/scrape/:page', async (req, res) => {
             productList.push({name, price});
         });
         console.log(productList)
-        return productList;
+        return [123,312,4142,4,421,];
     });
 
     await browser.close();
