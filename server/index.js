@@ -10,7 +10,7 @@ app.use(cors({
 
 app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
-
+debugger
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/chromium-browser',
         headless: 'new'
@@ -33,7 +33,6 @@ app.get('/scrape/:page', async (req, res) => {
             }, 100);
         });
     });
-    console.log(document.querySelectorAll('.catalog-grid__cell'))
     const products = await page.evaluate(() => {
         const productList = [];
 
