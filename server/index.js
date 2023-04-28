@@ -12,6 +12,7 @@ app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
 
     const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/chromium-browser',
         headless: 'new'
     });
     const page = await browser.newPage();
