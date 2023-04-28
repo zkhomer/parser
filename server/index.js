@@ -55,10 +55,12 @@ app.get('/scrape/:page', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while scraping the page');
+        app.listen(3000, () => {
+            console.log('Server listening on port 3000');
+        });
     }
 });
 
 
-app.listen(3000, () => {
-    console.log('Server listening on port 3000');
-});
+
+
