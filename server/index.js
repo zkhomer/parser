@@ -9,7 +9,6 @@ app.use(cors({
 }));
 
 app.get('/scrape/:page', async (req, res) => {
-
     const pageNumber = parseInt(req.params.page);
 
     try {
@@ -35,6 +34,10 @@ app.get('/scrape/:page', async (req, res) => {
                 }, 100);
             });
         });
+
+        // дожидаемся загрузки элемента, чтобы убедиться, что все данные загружены
+        await page.waitForSelector('.catalog-grid__cell');
+
         const products = await page.evaluate(() => {
             const productList = [];
 
@@ -52,7 +55,7 @@ app.get('/scrape/:page', async (req, res) => {
         });
 
         await browser.close();
-        await res.send(products);
+        res.send(products);
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while scraping the page');
