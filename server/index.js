@@ -17,7 +17,7 @@ app.get('/scrape/:page', async (req, res) => {
     });
     const page = await browser.newPage();
     await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
-    console.log('ololo')
+
     await page.evaluate(async () => {
         await new Promise((resolve) => {
             let totalHeight = 0;
@@ -33,7 +33,7 @@ app.get('/scrape/:page', async (req, res) => {
             }, 100);
         });
     });
-
+    console.log(document.querySelectorAll('.catalog-grid__cell'))
     const products = await page.evaluate(() => {
         const productList = [];
 
