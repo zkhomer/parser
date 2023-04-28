@@ -52,7 +52,7 @@ app.get('/scrape/:page', async (req, res) => {
         });
 
         await browser.close();
-        res.send(products);
+        await res.send(products);
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while scraping the page');
