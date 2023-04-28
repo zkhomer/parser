@@ -9,6 +9,7 @@ app.use(cors({
 }));
 
 app.get('/scrape/:page', async (req, res) => {
+
     const pageNumber = parseInt(req.params.page);
 
     try {
@@ -19,24 +20,7 @@ app.get('/scrape/:page', async (req, res) => {
         const page = await browser.newPage();
         await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
-        await page.evaluate(async () => {
-            await new Promise((resolve) => {
-                let totalHeight = 0;
-                const distance = 100;
-                const scrollInterval = setInterval(() => {
-                    const scrollHeight = document.body.scrollHeight;
-                    window.scrollBy(0, distance);
-                    totalHeight += distance;
-                    if (totalHeight >= scrollHeight) {
-                        clearInterval(scrollInterval);
-                        resolve();
-                    }
-                }, 100);
-            });
-        });
-
-        // дожидаемся загрузки элемента, чтобы убедиться, что все данные загружены
-        await page.waitForSelector('.catalog-grid__cell');
+        await page.waitForSelector('.catalog-grid__cell', { timeout: 90000 });
 
         const products = await page.evaluate(() => {
             const productList = [];
@@ -44,7 +28,6 @@ app.get('/scrape/:page', async (req, res) => {
             const productNodes = document.querySelectorAll('.catalog-grid__cell');
 
             productNodes.forEach((productNode) => {
-                console.log('it for loop')
                 const name = productNode.querySelector('.goods-tile__title').textContent.trim();
                 const price = productNode.querySelector('.goods-tile__price-value').textContent.trim();
 
