@@ -1,5 +1,5 @@
 FROM ghcr.io/puppeteer/puppeteer:latest
-
+USER root
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
