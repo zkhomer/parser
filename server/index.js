@@ -5,19 +5,15 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:8080'
+    origin: '*'
 }));
 
 app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
 
-    const browser = await puppeteer.launch(
-        {
-            executablePath: '/usr/bin/chromium-browser',
-            headless: 'new',
-            args: ["--no-sandbox"]
-        }
-    );
+    const browser = await puppeteer.launch({
+        headless: true
+    });
     const page = await browser.newPage();
     await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
 
