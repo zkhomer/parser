@@ -12,7 +12,8 @@ app.get('/scrape/:page', async (req, res) => {
     const pageNumber = parseInt(req.params.page);
 
     const browser = await puppeteer.launch({
-        headless: true
+        executablePath: '/usr/bin/chromium-browser',
+        headless: 'new'
     });
     const page = await browser.newPage();
     await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
