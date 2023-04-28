@@ -41,6 +41,7 @@ app.get('/scrape/:page', async (req, res) => {
         const productNodes = document.querySelectorAll('.catalog-grid__cell');
 
         productNodes.forEach((productNode) => {
+            console.log('it for loop')
             const name = productNode.querySelector('.goods-tile__title').textContent.trim();
             const price = productNode.querySelector('.goods-tile__price-value').textContent.trim();
 
