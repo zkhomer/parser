@@ -8,27 +8,27 @@ app.use(cors({
     origin: '*'
 }));
 
-app.get('/scrape/:page', async (req, res) => {
+app.get('/scrape/', async (req, res) => {
 
     const pageNumber = parseInt(req.params.page);
 
     try {
         const browser = await puppeteer.launch({
-            executablePath: '/usr/bin/google-chrome',
-            headless: "new",
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            // executablePath: '/usr/bin/google-chrome',
+            // headless: "new",
+            // args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
-        await page.goto(`https://hard.rozetka.com.ua/ua/computers/c80095/page=${pageNumber}`);
+        await page.goto(`https://olinbar.tools/barnyy-inventar`);
 
         const products = await page.evaluate(() => {
             const productList = [];
-            const productNodes = document.querySelectorAll('.catalog-grid__cell');
+            const productNodes = document.querySelectorAll('.js-product');
 
             productNodes.forEach((productNode) => {
-                const name = productNode.querySelector('.goods-tile__title').textContent.trim();
-                const price = productNode.querySelector('.goods-tile__price-value').textContent.trim();
+                const name = productNode.querySelector('.js-store-prod-name').textContent.trim();
+                const price = productNode.querySelector('.js-product-price').textContent.trim();
 
                 productList.push({name, price});
             });
@@ -37,10 +37,7 @@ app.get('/scrape/:page', async (req, res) => {
         });
 
         await browser.close();
-       setTimeout(() => {
-           res.send(products);
-       }, 30000)
-
+        res.send(products);
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while scraping the page');
