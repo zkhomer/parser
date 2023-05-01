@@ -10,8 +10,6 @@ app.use(cors({
 
 app.get('/scrape/', async (req, res) => {
 
-    const pageNumber = parseInt(req.params.page);
-
     try {
         const browser = await puppeteer.launch({
             executablePath: '/usr/bin/google-chrome',
@@ -21,6 +19,16 @@ app.get('/scrape/', async (req, res) => {
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
         await page.goto(`https://olinbar.tools/barnyy-inventar`);
+
+        // Скроллинг до конца страницы
+        const scrollPageToBottom = async (page) => {
+            const distance = '1000'; // расстояние для скроллинга
+            while (await page.evaluate(() => document.scrollingElement.scrollTop + window.innerHeight < document.scrollingElement.scrollHeight)) {
+                await page.evaluate((y) => { document.scrollingElement.scrollBy(0, y); }, distance);
+                await page.waitForTimeout(100);
+            }
+        };
+        await scrollPageToBottom(page);
 
         const products = await page.evaluate(() => {
             const productList = [];
