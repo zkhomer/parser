@@ -37,9 +37,10 @@ app.get('/scrape/', async (req, res) => {
             productNodes.forEach((productNode) => {
                 const name = productNode.querySelector('.js-store-prod-name').textContent.trim();
                 const price = productNode.querySelector('.js-product-price').textContent.trim();
-                const img = productNode.querySelector('.js-product-img ').dataset.original.trim();
+                const img = productNode.querySelector('.js-product-img');
+                const imgSrc = img ? img.dataset.original.trim() : '';
 
-                productList.push({name, price, img});
+                productList.push({name, price, img: imgSrc});
             });
 
             return {productList};
