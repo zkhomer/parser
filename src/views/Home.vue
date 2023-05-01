@@ -6,7 +6,7 @@
     <button :disabled="productList.length === 0" @click="nextPage">next page</button>
     <ul v-if="productList.length !== 0">
       <li v-for="(product, index) in productList" :key="index">
-        <img :src="product.img" alt="">
+        <img class="product-img" :src="product.img" alt="">
         {{ product.name }} - {{ product.price }}
       </li>
     </ul>
@@ -79,5 +79,9 @@ export default {
 <style lang="scss" scoped>
 .maincontent{
   padding-left: 300px;
+}
+.product-img{
+  max-width: 100px;
+  max-height: 100px;
 }
 </style>
