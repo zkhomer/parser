@@ -25,7 +25,7 @@ app.get('/scrape/', async (req, res) => {
             const distance = '1000'; // расстояние для скроллинга
             while (await page.evaluate(() => document.scrollingElement.scrollTop + window.innerHeight < document.scrollingElement.scrollHeight)) {
                 await page.evaluate((y) => { document.scrollingElement.scrollBy(0, y); }, distance);
-                await page.waitForTimeout(100);
+                await page.waitForTimeout(300);
             }
         };
         await scrollPageToBottom(page);
