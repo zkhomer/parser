@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted() {
-    axios.get('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/scrape/',{data: 'ololo'})
+    axios.get('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api',{data: 'ololo'})
         .then(response => {
           this.productList = response.data.productList
         })
