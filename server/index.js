@@ -8,7 +8,7 @@ app.use(cors({
     origin: '*'
 }));
 
-app.get('/scrape/', async (req, res) => {
+app.get('/', async (req, res) => {
 
     try {
         const browser = await puppeteer.launch({
