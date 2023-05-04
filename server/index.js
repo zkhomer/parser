@@ -1,5 +1,5 @@
 const express = require('express');
-const puppeteer =  ('puppeteer');
+const puppeteer =  require('puppeteer');
 const cors = require('cors');
 const { connectToDb, getDb } = require('./db');
 
