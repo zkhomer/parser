@@ -31,12 +31,14 @@ app.get('/allUsers', async (req, res) => {
         for await (const user of cursor) {
             users.push(user);
         }
+        res.setHeader('Content-Type', 'application/json'); // Устанавливаем заголовок Content-Type
         res.status(200).json(users);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
+
 
 app.get('/api', async (req, res) => {
 
