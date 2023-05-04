@@ -26,6 +26,7 @@ connectToDb((err)=>{
 
 app.get('/allUsers', async(req, res)=>{
     res.setHeader('Content-Type', 'application/json');
+
     const users = [];
     db.collection('users').find().forEach((user)=>{
         users.push(user)
