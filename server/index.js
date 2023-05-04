@@ -33,7 +33,7 @@ app.get('/allUsers', async(req, res)=>{
     }).then(()=>{
         res.status(200).json(JSON.stringify(users))
     })
-    console.log(users)
+    res.send(users)
 })
 
 app.get('/api', async (req, res) => {
