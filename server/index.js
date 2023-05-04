@@ -25,11 +25,12 @@ connectToDb((err)=>{
 })
 
 app.get('/allUsers', async(req, res)=>{
+    res.setHeader('Content-Type', 'application/json');
     const users = [];
     db.collection('users').find().forEach((user)=>{
         users.push(user)
     }).then(()=>{
-        res.status(200).json(users)
+        res.status(200).json(JSON.stringify(users))
     })
 })
 
