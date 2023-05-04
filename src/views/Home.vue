@@ -1,9 +1,7 @@
 <template>
   <div class="maincontent">
     <h1>page:{{page}}</h1>
-    <button @click="sendQuery" >send for my Telegram</button>
-    <button :disabled="productList.length === 0 || page < 2" @click="prevPage">prev page</button>
-    <button :disabled="productList.length === 0" @click="nextPage">next page</button>
+    <button @click="sendQuery" >check user from DB</button>
     <ul v-if="productList.length !== 0">
       <li v-for="(product, index) in productList" :key="index">
         <img class="product-img" :src="product.img" alt="">
@@ -37,16 +35,26 @@ export default {
   },
   methods:{
     sendQuery() {
-      const token = `1626093590:AAHZTkCDkjUA2fjm48Y6_W7RD1qgQTC1GNg`
-      const chatId = `-542959091`
-      let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${this.productList.reduce((acc, cur) => {
-        return acc + `Name: ${cur.name} || Price: ${cur.price},\n`;
-      }, "")}`
-      fetch(url)
-          .then(response => response.json())
-          .then(data => console.log(data))
-          .catch(error => console.error(error))
-      console.log(this.productList)
+      // const token = `1626093590:AAHZTkCDkjUA2fjm48Y6_W7RD1qgQTC1GNg`
+      // const chatId = `-542959091`
+      // let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${this.productList.reduce((acc, cur) => {
+      //   return acc + `Name: ${cur.name} || Price: ${cur.price},\n`;
+      // }, "")}`
+      // fetch(url)
+      //     .then(response => response.json())
+      //     .then(data => console.log(data))
+      //     .catch(error => console.error(error))
+      // console.log(this.productList)
+      axios.post('http://localhost:3000/user-login', {
+        login: 'ivanov90',
+        password: '3jkslal'
+      })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     },
     nextPage(){
       this.page++

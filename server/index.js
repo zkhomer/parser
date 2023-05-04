@@ -3,8 +3,10 @@ const puppeteer =  require('puppeteer');
 const cors = require('cors');
 const { connectToDb, getDb } = require('./db');
 
-const app = express();
 
+
+const app = express();
+app.use(express.json());
 const PORT = 3000;
 
 let db
@@ -39,6 +41,16 @@ app.get('/allUsers', async (req, res) => {
     }
 });
 
+app.post('/user-login', async (req, res) => {
+    try {
+        const user = await db.collection('users').findOne({ login: req.body.login, password: req.body.password});
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
 
 app.get('/api', async (req, res) => {
 
