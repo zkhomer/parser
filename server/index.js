@@ -1,12 +1,37 @@
-import express from 'express';
-import puppeteer from 'puppeteer';
-import cors from 'cors';
+const express = require('express');
+const puppeteer =  ('puppeteer');
+const cors = require('cors');
+const { connectToDb, getDb } = require('./db');
 
 const app = express();
+
+const PORT = 3000;
+
+let db
 
 app.use(cors({
     origin: '*'
 }));
+
+connectToDb((err)=>{
+    if (!err){
+        app.listen(PORT, () => {
+            console.log(`Server listening on port ${PORT}`);
+        });
+        db = getDb()
+    }else {
+        console.log(`db connection error:${err}`)
+    }
+})
+
+app.get('/allUsers', async(req, res)=>{
+    const users = [];
+    db.collection('users').find().forEach((user)=>{
+        users.push(user)
+    }).then(()=>{
+        res.status(200).json(users)
+    })
+})
 
 app.get('/api', async (req, res) => {
 
@@ -54,6 +79,5 @@ app.get('/api', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server listening on port 3000');
-});
+
+
