@@ -4,12 +4,12 @@
     <form  class="login-form__form" action="">
       <span class="error-msg" v-if="isError">pls enter correct data</span>
       <div class="login-form__input-group">
-        <label>
+        <label class="login-form__input-label" >
           Login:
           <input v-model="login" class="login-form__input" type="text" placeholder="enter your Login ...">
         </label>
-          <label>
-            password:
+          <label class="login-form__input-label">
+            Password:
             <input v-model="password" class="login-form__input" type="password" placeholder="enter your Password ...">
           </label>
       </div>
@@ -85,6 +85,9 @@ let loginHandler = () => {
     gap: 20px;
     margin-bottom: 30px;
     text-align: center;
+    @media (max-width: 480px) {
+      flex-wrap: wrap;
+    }
   }
   &__input{
     height: 30px;
@@ -93,6 +96,15 @@ let loginHandler = () => {
     border: none;
     margin-left: 5px;
     padding-left: 10px;
+
+  }
+  &__input-label{
+    @media (max-width:  480px) {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+    }
   }
 
 }
