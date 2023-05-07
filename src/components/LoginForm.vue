@@ -1,23 +1,50 @@
 <template>
   <div class="login-form__wrapper">
     <div class="login-form__background"></div>
-    <form class="login-form__form" action="">
+    <form  class="login-form__form" action="">
+      <span class="error-msg" v-if="isError">pls enter correct data</span>
       <div class="login-form__input-group">
         <label>
           Login:
-          <input class="login-form__input" type="text" placeholder="enter your Login ...">
+          <input v-model="login" class="login-form__input" type="text" placeholder="enter your Login ...">
         </label>
           <label>
             password:
-            <input class="login-form__input" type="password" placeholder="enter your Password ...">
+            <input v-model="password" class="login-form__input" type="password" placeholder="enter your Password ...">
           </label>
       </div>
-      <button class="login-form__btn" type="button">Login</button>
+      <router-link tag="button" to="/" @click="loginHandler" class="login-form__btn" type="button">Login</router-link>
     </form>
   </div>
 </template>
 
 <script setup>
+import axios from 'axios';
+import {ref} from 'vue';
+
+const login = ref('')
+const password = ref('')
+const isError = ref(false)
+
+let loginHandler = () => {
+  axios.post('http://localhost:3000/user-login', {
+    login: login.value,
+    password: password.value,
+  })
+      .then(function (response) {
+        const userData = response.data;
+        if (userData) {
+          localStorage.setItem('user-data', JSON.stringify(userData));
+          isError.value = false;
+        } else {
+          localStorage.setItem('user-data', '');
+          isError.value = true;
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
 </script>
 
@@ -64,5 +91,10 @@
     margin-left: 5px;
     padding-left: 10px;
   }
+
+}
+.error-msg {
+  color: red;
+  font-weight: bold;
 }
 </style>

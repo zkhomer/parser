@@ -37,19 +37,7 @@ export default {
         });
   },
   methods:{
-    sendQuery() {
 
-      axios.post('http://localhost:3000/user-login', {
-        login: 'ivanov90',
-        password: '3jkslal'
-      })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    },
     nextPage(){
       this.page++
       this.productList = []

@@ -1,5 +1,9 @@
 const User = require('../models/user')
+const cors = require('cors');
+const express = require('express');
+const app = express();
 
+app.use(cors());
 
 const getAllUsers = async (req, res)=> {
     try {

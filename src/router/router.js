@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import LeftMenu from '../views/LeftMenu.vue'
-import LoginPage from'../views/LoginPage.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
     {
@@ -24,6 +24,17 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+
+router.beforeEach((to, from, next) => {
+    const userData = localStorage.getItem('user-data')
+
+    if (!userData && to.name !== 'login-page') {
+        next('/login-page')
+    } else {
+        next()
+    }
 })
 
 export default router
