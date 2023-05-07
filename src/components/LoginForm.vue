@@ -27,7 +27,7 @@ const password = ref('')
 const isError = ref(false)
 
 let loginHandler = () => {
-  axios.post('http://localhost:3000/user-login', {
+  axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/user-login', {
     login: login.value,
     password: password.value,
   })
@@ -51,8 +51,10 @@ let loginHandler = () => {
 <style lang="scss" scoped>
 .login-form{
   &__btn{
-    //background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
-    background-color: #000;
+    background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
+    padding: 10px 0;
+    text-align: center;
+    color: white;
   }
   &__form{
     display: flex;
