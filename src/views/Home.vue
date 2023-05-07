@@ -1,11 +1,9 @@
 <template>
-  <LeftMenu/>
+  <LeftMenu />
   <div class="maincontent">
-    <h1>page:{{page}}</h1>
-    <button @click="sendQuery" >check user from DB</button>
     <ul v-if="productList.length !== 0">
       <li v-for="(product, index) in productList" :key="index">
-        <img class="product-img" :src="product.img" alt="">
+        <img class="product-img" :src="product.img" alt="" />
         {{ product.name }} - {{ product.price }}
       </li>
     </ul>
@@ -16,61 +14,39 @@
 </template>
 
 <script>
-import axios from 'axios';
-import LeftMenu from './LeftMenu.vue';
+import axios from "axios";
+import LeftMenu from "./LeftMenu.vue";
+import { useStore } from "../store/index";
 
 export default {
-  components: {LeftMenu},
+  components: { LeftMenu },
   data() {
     return {
       productList: [],
       page: 1,
+      storeList:[]
     };
   },
   mounted() {
-    axios.get('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api',{data: 'ololo'})
-        .then(response => {
-          this.productList = response.data.productList
+    axios
+        .get("http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api", {
         })
-        .catch(error => {
+        .then((response) => {
+          this.productList = response.data.productList;
+        })
+        .catch((error) => {
           console.error(error);
         });
   },
-  methods:{
-
-    nextPage(){
-      this.page++
-      this.productList = []
-      axios.get(`http://localhost:3000/scrape/${this.page}`)
-          .then(response => {
-            console.log(response);
-            this.productList = response.data.productList
-          })
-          .catch(error => {
-            console.error(error);
-          });
-    },
-    prevPage(){
-      this.page--
-      this.productList = []
-      axios.get(`http://localhost:3000/scrape/${this.page}`)
-          .then(response => {
-            console.log(response);
-            this.productList = response.data.productList
-          })
-          .catch(error => {
-            console.error(error);
-          });
-    }
-  }
+  methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
-.maincontent{
+.maincontent {
   padding-left: 300px;
 }
-.product-img{
+.product-img {
   max-width: 100px;
   max-height: 100px;
 }
