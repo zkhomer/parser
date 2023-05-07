@@ -1,8 +1,5 @@
 const User = require('../models/user')
 
-const handleError =  (res, error) =>{
-    res.status(500).json({error})
-}
 
 const getAllUsers = async (req, res)=> {
     try {

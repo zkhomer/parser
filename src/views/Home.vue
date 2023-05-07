@@ -38,16 +38,7 @@ export default {
   },
   methods:{
     sendQuery() {
-      // const token = `1626093590:AAHZTkCDkjUA2fjm48Y6_W7RD1qgQTC1GNg`
-      // const chatId = `-542959091`
-      // let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${this.productList.reduce((acc, cur) => {
-      //   return acc + `Name: ${cur.name} || Price: ${cur.price},\n`;
-      // }, "")}`
-      // fetch(url)
-      //     .then(response => response.json())
-      //     .then(data => console.log(data))
-      //     .catch(error => console.error(error))
-      // console.log(this.productList)
+
       axios.post('http://localhost:3000/user-login', {
         login: 'ivanov90',
         password: '3jkslal'
