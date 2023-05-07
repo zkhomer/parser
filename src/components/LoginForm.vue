@@ -51,7 +51,8 @@ let loginHandler = () => {
 <style lang="scss" scoped>
 .login-form{
   &__btn{
-    background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
+    //background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
+    background-color: #000;
   }
   &__form{
     display: flex;
