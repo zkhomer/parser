@@ -1,4 +1,5 @@
 <template>
+  <LeftMenu/>
   <div class="maincontent">
     <h1>page:{{page}}</h1>
     <button @click="sendQuery" >check user from DB</button>
@@ -16,8 +17,10 @@
 
 <script>
 import axios from 'axios';
+import LeftMenu from './LeftMenu.vue';
 
 export default {
+  components: {LeftMenu},
   data() {
     return {
       productList: [],

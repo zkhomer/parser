@@ -4,7 +4,6 @@ import LeftMenu from './views/LeftMenu.vue';
 </script>
 
 <template>
-    <LeftMenu />
     <router-view></router-view>
 </template>
 

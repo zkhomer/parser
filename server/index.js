@@ -1,55 +1,27 @@
 const express = require('express');
+const mongoose = require('mongoose')
+const User = require("./models/user")
 const puppeteer =  require('puppeteer');
 const cors = require('cors');
-const { connectToDb, getDb } = require('./db');
+const userRoutes = require('./routes/user-routs')
 
 
+const URL = "mongodb://localhost:27017/usersbox"
+const PORT = 3000;
 
 const app = express();
 app.use(express.json());
-const PORT = 3000;
-
-let db
-
+app.use(userRoutes);
 app.use(cors({
     origin: '*'
 }));
 
-connectToDb((err)=>{
-    if (!err){
-        app.listen(PORT, () => {
-            console.log(`Server listening on port ${PORT}`);
-        });
-        db = getDb()
-    }else {
-        console.log(`db connection error:${err}`)
-    }
-})
+mongoose.connect(URL).then(()=>{
+    console.log('connected to MongoDB')
+}).catch((err)=>console.log(err))
 
-app.get('/allUsers', async (req, res) => {
-    try {
-        const users = [];
-        const cursor = db.collection('users').find();
-        for await (const user of cursor) {
-            users.push(user);
-        }
-        res.setHeader('Content-Type', 'application/json'); // Устанавливаем заголовок Content-Type
-        res.status(200).json(users);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
-    }
-});
-
-app.post('/user-login', async (req, res) => {
-    try {
-        const user = await db.collection('users').findOne({ login: req.body.login, password: req.body.password});
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(user);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
-    }
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
 
 app.get('/api', async (req, res) => {
