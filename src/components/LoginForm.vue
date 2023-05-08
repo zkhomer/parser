@@ -59,6 +59,7 @@ let loginHandler = () => {
   &__form{
     display: flex;
     position: relative;
+    margin: 0 auto;
     z-index: 2;
     flex-direction: column;
     justify-content: center;
@@ -69,6 +70,11 @@ let loginHandler = () => {
     backdrop-filter: blur(21px);
   }
   &__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 970px;
+    height: 100vh;
   }
   &__background {
      position: absolute;

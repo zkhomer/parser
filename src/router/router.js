@@ -7,12 +7,12 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: LeftMenu
     },
     {
-        path: '/LeftMenu',
-        name: 'About',
-        component: LeftMenu
+        path: '/pages-category',
+        name: 'pages',
+        component: Home
     },
     {
         path:'/login-page',

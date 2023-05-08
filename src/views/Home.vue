@@ -1,25 +1,29 @@
 <template>
+  <div class="wrap">
   <LeftMenu />
-  <div class="maincontent">
-    <ul v-if="productList.length !== 0">
-      <li v-for="(product, index) in productList" :key="index">
-        <img class="product-img" :src="product.img" alt="" />
-        {{ product.name }} - {{ product.price }}
-      </li>
-    </ul>
-    <div v-else>
-      Parsing new page ...
-    </div>
+  <PageList />
   </div>
+<!--  <div class="maincontent">-->
+<!--    <ul v-if="productList.length !== 0">-->
+<!--      <li v-for="(product, index) in productList" :key="index">-->
+<!--        <img class="product-img" :src="product.img" alt="" />-->
+<!--        {{ product.name }} - {{ product.price }}-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <div v-else>-->
+<!--      Parsing new page ...-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script>
 import axios from "axios";
 import LeftMenu from "./LeftMenu.vue";
+import PageList from './PageList.vue'
 import { useStore } from "../store/index";
 
 export default {
-  components: { LeftMenu },
+  components: { LeftMenu, PageList },
   data() {
     return {
       productList: [],
@@ -43,6 +47,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrap{
+  display: flex;
+}
 .maincontent {
   padding-left: 300px;
 }

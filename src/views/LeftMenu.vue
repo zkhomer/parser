@@ -5,7 +5,7 @@
         <li class="add">
           <div>+</div>
         </li>
-        <li v-if="storeList[0]?.storBox" v-for="store of storeList[0].storBox" :key="store.id">
+        <li @click="()=> listHandler(store)" v-if="storeList[0]?.storBox" v-for="store of storeList[0].storBox" :key="store.id">
           <img class="list-img" :src="store.logo" alt="">
           <span>{{store.title}}</span>
         </li>
@@ -19,11 +19,17 @@ import {onMounted, defineProps, ref, watch} from 'vue';
 import {useStore} from '../store';
 
 let storeList = ref([]);
+let itemData = ref([])
 
 onMounted(async () => {
   await fetchUserData();
   console.log(storeList.value);
 });
+
+const listHandler = (item)=> {
+  itemData.value = item.pages
+  console.log(itemData.value)
+}
 
 const fetchUserData = async () => {
   try {
@@ -45,12 +51,12 @@ const fetchUserData = async () => {
 .leftMenu__nav-wrapper {
   border: 1px solid black;
   background-color: #210d0d;
-  position: fixed;
-  left: 0px;
-  top: 0;
-  bottom: 0;
   max-width: 300px;
   transition: 0.4s ease-in;
+  min-height: 100vh;
+  @media (min-width: 768px) {
+    min-width: 250px;
+  }
 
   &:hover {
     left: 0;
