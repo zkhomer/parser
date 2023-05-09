@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import LeftMenu from '../views/LeftMenu.vue'
+import CategoryInfo from '../views/CategoryInfo.vue'
 import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
@@ -18,6 +19,11 @@ const routes = [
         path:'/login-page',
         name: 'login-page',
         component: LoginPage,
+    },
+    {
+        path:'/category-info',
+        name: 'category-info',
+        component: CategoryInfo,
     }
 ]
 

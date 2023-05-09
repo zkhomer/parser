@@ -5,9 +5,10 @@
         <li class="add">
           <div>+</div>
         </li>
-        <li @click="()=> listHandler(store)" v-if="storeList[0]?.storBox" v-for="store of storeList[0].storBox" :key="store.id">
+        <li @click="()=> listHandler(store)" v-if="storeList[0]?.storBox" v-for="store of storeList[0].storBox"
+            :key="store.id">
           <img class="list-img" :src="store.logo" alt="">
-          <span>{{store.title}}</span>
+          <span>{{ store.title }}</span>
         </li>
       </ul>
     </nav>
@@ -17,26 +18,31 @@
 <script setup>
 import {onMounted, defineProps, ref, watch} from 'vue';
 import {useStore} from '../store';
+import {storeToRefs} from 'pinia'
+import { useRouter } from 'vue-router';
 
 let storeList = ref([]);
 let itemData = ref([])
+const parserStore = useStore();
+const router = useRouter();
+
+const { currentTargetStore } = storeToRefs(parserStore);
+
 
 onMounted(async () => {
   await fetchUserData();
-  console.log(storeList.value);
 });
 
-const listHandler = (item)=> {
+const listHandler = (item) => {
   itemData.value = item.pages
-  console.log(itemData.value)
+  parserStore.setCurrentStore(item)
+  router.push({ name: 'pages' });
 }
 
 const fetchUserData = async () => {
   try {
-    const parserStore = useStore();
     const userData = await parserStore.fetchUserData();
     if (userData) {
-      console.log('User data:', userData);
       storeList.value.push(userData);
     } else {
       console.error('User data is null');
@@ -73,10 +79,12 @@ const fetchUserData = async () => {
     cursor: pointer;
   }
 }
-.list-img{
+
+.list-img {
   max-width: 100px;
 }
-.add{
+
+.add {
   font-size: 25px;
   font-weight: bold;
 }

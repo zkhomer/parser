@@ -2,27 +2,36 @@
   <div class="page-group">
     <div class="page-group__wrapper">
       <div class="page-group__card-first">+</div>
-      <div class="page-group__card">
-      </div>
-      <div class="page-group__card">
-      </div>
-      <div class="page-group__card">
-      </div>
-      <div class="page-group__card">
-      </div>
-      <div class="page-group__card">
-      </div>
-      <div class="page-group__card">
-      </div>
-      <div class="page-group__card">
+      <div @click="()=>selectCategoryPageHandler(store)" class="page-group__card" v-for="store of pagesCategories.pages">
+        {{ store.categoryName }}
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import {useStore} from '../store';
+import {storeToRefs} from 'pinia'
+import {onMounted, computed} from 'vue';
+import {useRouter} from 'vue-router/dist/vue-router';
 
-defineProps({})
+const router = useRouter();
+
+const parserStore = useStore();
+const { currentTargetStore } = storeToRefs(parserStore);
+
+const pagesCategories = computed(() => currentTargetStore.value)
+
+onMounted(()=>{
+  console.log(pagesCategories)
+})
+
+const selectCategoryPageHandler = (pageCategory) =>{
+  parserStore.setSelectedCategory(pageCategory)
+  router.push({ name: 'category-info' });
+
+}
+
 </script>
 
 <style lang="scss" scoped>

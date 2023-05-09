@@ -4,7 +4,8 @@ import axios from 'axios'
 export const useStore = defineStore({
     id: 'parserStore',
     state: () => ({
-
+        currentTargetStore: {},
+        selectedCategory:{}
     }),
     actions: {
         async fetchUserData() {
@@ -19,12 +20,23 @@ export const useStore = defineStore({
                     login,
                     password
                 });
-                console.log('User login response:', response.data);
-                return response.data; // возвращает данные из ответа
+                return response.data;
             } catch (error) {
                 console.error('Error fetching user data:', error);
                 return null;
             }
+        },
+        setCurrentStore(currentStoreData) {
+            this.currentTargetStore = currentStoreData;
+        },
+        setSelectedCategory(selectedCategory){
+            this.selectedCategory = selectedCategory
+        }
+
+    },
+    getters:{
+        getCurrentStore(){
+           return state.currentTargetStore
         }
     }
 })
