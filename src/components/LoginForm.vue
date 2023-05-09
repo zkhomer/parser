@@ -8,12 +8,12 @@
           Login:
           <input v-model="login" class="login-form__input" type="text" placeholder="enter your Login ...">
         </label>
-          <label class="login-form__input-label">
-            Password:
-            <input v-model="password" class="login-form__input" type="password" placeholder="enter your Password ...">
-          </label>
+        <label class="login-form__input-label">
+          Password:
+          <input v-model="password" class="login-form__input" type="password" placeholder="enter your Password ...">
+        </label>
       </div>
-      <router-link tag="button" to="/" @click="loginHandler" class="login-form__btn" type="button">Login</router-link>
+      <button class="login-form__btn" type="button" @click="loginHandler">Login</button>
     </form>
   </div>
 </template>
@@ -21,6 +21,9 @@
 <script setup>
 import axios from 'axios';
 import {ref} from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const login = ref('')
 const password = ref('')
@@ -36,6 +39,7 @@ let loginHandler = () => {
         if (userData) {
           localStorage.setItem('user-data', JSON.stringify(userData));
           isError.value = false;
+          router.push({ name: 'Home' });
         } else {
           localStorage.setItem('user-data', '');
           isError.value = true;
@@ -45,7 +49,6 @@ let loginHandler = () => {
         console.log(error);
       });
 }
-
 </script>
 
 <style lang="scss" scoped>
