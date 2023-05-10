@@ -12,6 +12,7 @@
         </li>
       </ul>
     </nav>
+    <button @click="logoutHandler">logOut</button>
   </div>
 </template>
 
@@ -32,6 +33,12 @@ const { currentTargetStore } = storeToRefs(parserStore);
 onMounted(async () => {
   await fetchUserData();
 });
+
+const logoutHandler = ()=>{
+  localStorage.setItem('user-data', '')
+  router.push({ name: 'login-page' });
+
+}
 
 const listHandler = (item) => {
   itemData.value = item.pages
