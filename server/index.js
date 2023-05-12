@@ -1,12 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose')
-const User = require("./models/user")
-const puppeteer =  require('puppeteer');
+const mongoose = require('mongoose');
+const puppeteer = require('puppeteer');
 const cors = require('cors');
-const userRoutes = require('./routes/user-routs')
+const userRoutes = require('../server/routes/user-routs.js');
 
-
-const URL = "mongodb://localhost:27017/usersbox"
+const URL = "mongodb://localhost:27017/usersbox";
 const PORT = 3000;
 
 const app = express();
@@ -16,17 +14,18 @@ app.use(cors({
     origin: '*'
 }));
 
-mongoose.connect(URL).then(()=>{
-    console.log('connected to MongoDB')
-}).catch((err)=>console.log(err))
+mongoose.connect(URL).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((err) => console.log(err));
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
 
-app.get('/api', async (req, res) => {
-
+app.post('/api', async (req, res) => {
     try {
+        const { cardSelector, customSelectors, pageUrl } = req.body;
+
         const browser = await puppeteer.launch({
             executablePath: '/usr/bin/google-chrome',
             headless: "new",
@@ -34,10 +33,10 @@ app.get('/api', async (req, res) => {
         });
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
-        await page.goto(`https://olinbar.tools/barnyy-inventar`);
+        await page.goto(pageUrl);
 
         const scrollPageToBottom = async (page) => {
-            const distance = '1000'; // расстояние для скроллинга
+            const distance = '1000';
             while (await page.evaluate(() => document.scrollingElement.scrollTop + window.innerHeight < document.scrollingElement.scrollHeight)) {
                 await page.evaluate((y) => { document.scrollingElement.scrollBy(0, y); }, distance);
                 await page.waitForTimeout(300);
@@ -45,29 +44,23 @@ app.get('/api', async (req, res) => {
         };
         await scrollPageToBottom(page);
 
-        const products = await page.evaluate(() => {
-            const productList = [];
-            const productNodes = document.querySelectorAll('.js-product');
+        const parsedData = await page.evaluate(({ customSelectors }) => {
+            const result = {};
 
-            productNodes.forEach((productNode) => {
-                const name = productNode.querySelector('.js-store-prod-name').textContent.trim();
-                const price = productNode.querySelector('.js-product-price').textContent.trim();
-                const img = productNode.querySelector('.js-product-img');
-                const imgSrc = img ? img.dataset.original.trim() : '';
-
-                productList.push({name, price, img: imgSrc});
+            customSelectors.forEach((field) => {
+                const { key, selector } = field;
+                const element = document.querySelector(selector);
+                const value = element ? element.textContent.trim() : '';
+                result[key] = value;
             });
 
-            return {productList};
-        });
+            return result;
+        }, { customSelectors });
 
         await browser.close();
-        res.send(products);
+        res.send(parsedData);
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while scraping the page');
     }
 });
-
-
-
