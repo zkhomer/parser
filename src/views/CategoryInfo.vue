@@ -7,7 +7,7 @@
         <li v-for="product in productList" :key="product.name">
           <div class="product-name">{{ product.name }}</div>
           <div class="product-price">{{ product.price }}</div>
-          <img :src="product.img" alt="Product Image" class="product-img" />
+          <img :src="product.imgUrl" alt="Product Image" class="product-img" />
         </li>
       </ul>
     </div>
@@ -28,7 +28,6 @@ const productList = ref([]);
 const pagesCategories = computed(() => selectedCategory.value);
 
 onMounted(async () => {
-  console.log(pagesCategories.value);
   await getCategoryDataFromServer();
 });
 
@@ -40,13 +39,11 @@ const getCategoryDataFromServer = async () => {
       return null;
     }
     const { cardSelector, customSelectors, pageUrl } = pagesCategories.value;
-    console.log(cardSelector, customSelectors, pageUrl);
     const response = await axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api', {
       cardSelector,
       customSelectors,
       pageUrl
     });
-    console.log(response.data);
     productList.value = response.data.productList;
     return response.data;
   } catch (error) {

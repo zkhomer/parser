@@ -22,9 +22,7 @@ const { currentTargetStore } = storeToRefs(parserStore);
 
 const pagesCategories = computed(() => currentTargetStore.value)
 
-onMounted(()=>{
-  console.log(pagesCategories)
-})
+onMounted(()=>{})
 
 const selectCategoryPageHandler = (pageCategory) =>{
   parserStore.setSelectedCategory(pageCategory)
