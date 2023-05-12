@@ -1,63 +1,68 @@
 <template>
   <div class="wrap">
     <LeftMenu />
-    <div class="maincontent">
-      <h1>Data</h1>
-      <ul>
-        <li v-for="product in productList" :key="product.name">
-          <div class="product-name">{{ product.name }}</div>
-          <div class="product-price">{{ product.price }}</div>
-          <img :src="product.img" alt="Product Image" class="product-img" />
-        </li>
-      </ul>
-    </div>
+<!--    <div class="maincontent">-->
+<!--      <ul v-if="productList.length !== 0">-->
+<!--        <li v-for="(product, index) in productList" :key="index">-->
+<!--          <img class="product-img" :src="product.img" alt="" />-->
+<!--          {{ product.name }} - {{ product.price }}-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <div v-else>-->
+<!--        Parsing page ...-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script setup>
 import axios from "axios";
 import LeftMenu from "./LeftMenu.vue";
-import { useStore } from '../store';
-import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
+import PageList from './PageList.vue'
+import {useStore} from '../store';
+import {storeToRefs} from 'pinia'
+import {computed, onMounted} from 'vue';
 
-const store = useStore();
+
+const store = useStore()
 const { selectedCategory } = storeToRefs(store);
-const productList = ref([]);
 
-const pagesCategories = computed(() => selectedCategory.value);
 
-onMounted(async () => {
-  console.log(pagesCategories.value);
-  await getCategoryDataFromServer();
-});
+const pagesCategories = computed(() => selectedCategory.value)
 
-const getCategoryDataFromServer = async () => {
-  try {
-    const userData = localStorage.getItem('user-data');
-    if (!userData) {
-      console.error('User data not found in local storage');
-      return null;
-    }
-    const { cardSelector, customSelectors, pageUrl } = pagesCategories.value;
-    console.log(cardSelector, customSelectors, pageUrl);
-    const response = await axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api', {
-      cardSelector,
-      customSelectors,
-      pageUrl
-    });
-    console.log(response.data);
-    productList.value = response.data.productList;
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    return null;
-  }
-}
+
+onMounted(()=>{
+  console.log(pagesCategories.value)
+})
+
+const f
+// export default {
+//   components: { LeftMenu },
+//   data() {
+//     return {
+//       productList: [],
+//       page: 1,
+//       storeList:[]
+//     };
+//   },
+//   mounted() {
+//
+//     axios
+//         .get("http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api", {
+//         })
+//         .then((response) => {
+//           this.productList = response.data.productList;
+//         })
+//         .catch((error) => {
+//           console.error(error);
+//         });
+//   },
+//   methods: {},
+// };
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+.wrap{
   display: flex;
 }
 .maincontent {
