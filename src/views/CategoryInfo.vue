@@ -47,7 +47,7 @@ const getCategoryDataFromServer = async () => {
       return null;
     }
     const { cardSelector, customSelectors, pageUrl } = pagesCategories.value;
-    const response = await axios.post('http://localhost:3000/api', {
+    const response = await axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api', {
       cardSelector,
       customSelectors,
       pageUrl
