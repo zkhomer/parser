@@ -17,6 +17,10 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const addStoreController = async (req, res)=>{
+
+}
+
 const loginController = async (req, res) => {
     try {
         const user = await User.findOne({login: req.body.login, password: req.body.password});
@@ -91,5 +95,6 @@ const categoryDataController = async (req, res) => {
 module.exports = {
     getAllUsers,
     loginController,
-    categoryDataController
+    categoryDataController,
+    addStoreController
 }

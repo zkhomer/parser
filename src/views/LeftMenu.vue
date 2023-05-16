@@ -1,8 +1,9 @@
 <template>
+  <AddNewStoreForm :isOpen="formHandler" v-show="isAddForm" />
   <div class="leftMenu__nav-wrapper">
     <nav>
       <ul>
-        <li class="add">
+        <li @click="formHandler" class="add">
           <div>+</div>
         </li>
         <li @click="()=> listHandler(store)" v-if="storeList[0]?.storBox" v-for="store of storeList[0].storBox"
@@ -21,9 +22,11 @@ import {onMounted, defineProps, ref, watch} from 'vue';
 import {useStore} from '../store';
 import {storeToRefs} from 'pinia'
 import { useRouter } from 'vue-router';
+import AddNewStoreForm from  '../components/AddNewStoreForm.vue'
 
 let storeList = ref([]);
 let itemData = ref([])
+let isAddForm = ref(false)
 const parserStore = useStore();
 const router = useRouter();
 
@@ -37,6 +40,12 @@ const logoutHandler = ()=>{
   router.push({ name: 'login-page' });
 
 }
+
+const formHandler = () =>{
+  isAddForm.value = !isAddForm.value
+}
+
+
 
 const listHandler = (item) => {
   itemData.value = item.pages
