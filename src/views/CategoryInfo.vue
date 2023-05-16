@@ -1,13 +1,21 @@
 <template>
   <div class="wrap">
     <LeftMenu />
-    <div class="maincontent">
-      <h1>Data</h1>
-      <ul>
-        <li v-for="product in productList" :key="product.name">
-          <div class="product-name">{{ product.name }}</div>
-          <div class="product-price">{{ product.price }}</div>
-          <img :src="product.imgUrl" alt="Product Image" class="product-img" />
+    <div class="category-info__wrapper">
+      <h1 class="category-info__title"
+          v-if="pagesCategories.pageUrl">
+        Page link:
+        <a :href="pagesCategories.pageUrl">
+          {{pagesCategories.pageUrl}}
+        </a>
+      </h1>
+      <ul class="category-list">
+        <li class="category-list__item" v-for="product in productList" :key="product.name">
+          <div class="category-list__item-wrapper">
+            <img :src="product.imgUrl" alt="Product Image" class="product-img" />
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-price"> cost: {{ product.price }}</div>
+          </div>
         </li>
       </ul>
     </div>
@@ -39,7 +47,7 @@ const getCategoryDataFromServer = async () => {
       return null;
     }
     const { cardSelector, customSelectors, pageUrl } = pagesCategories.value;
-    const response = await axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api', {
+    const response = await axios.post('http://localhost:3000/api', {
       cardSelector,
       customSelectors,
       pageUrl
@@ -56,12 +64,26 @@ const getCategoryDataFromServer = async () => {
 <style lang="scss" scoped>
 .wrap {
   display: flex;
+  .category-list{
+    list-style: none;
+    padding-left: 20px;
+    text-align: left;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    &__item-wrapper{
+      border: 1px solid white;
+      max-width: 250px;
+      padding: 5px;
+    }
+  }
+  .category-info__title{
+    font-size: 20px;
+  }
+  .product-img {
+    max-width: 100px;
+    max-height: 100px;
+  }
 }
-.maincontent {
-  padding-left: 300px;
-}
-.product-img {
-  max-width: 100px;
-  max-height: 100px;
-}
+
 </style>

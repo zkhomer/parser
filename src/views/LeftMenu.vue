@@ -27,8 +27,6 @@ let itemData = ref([])
 const parserStore = useStore();
 const router = useRouter();
 
-const { currentTargetStore } = storeToRefs(parserStore);
-
 
 onMounted(async () => {
   await fetchUserData();

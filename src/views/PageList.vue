@@ -3,7 +3,9 @@
     <div class="page-group__wrapper">
       <div class="page-group__card-first">+</div>
       <div @click="()=>selectCategoryPageHandler(store)" class="page-group__card" v-for="store of pagesCategories.pages">
-        {{ store.categoryName }}
+        <div class="page-group__card-wrapper">
+          {{ store.categoryName }}
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +45,12 @@ const selectCategoryPageHandler = (pageCategory) =>{
 &__card, &__card-first{
   width: 150px;
   height: 150px;
-  border: 1px solid black;
+  border: 1px dashed #9ca3af;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
 }
 &__card-first{
   text-align: center;
