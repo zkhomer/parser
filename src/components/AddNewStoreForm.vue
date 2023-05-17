@@ -7,14 +7,14 @@
     <div class="add-form__input-group">
       <label>
         Logo link:
-        <input type="text" placeholder="enter link for logo">
+        <input v-model="logoLink" type="text" placeholder="enter link for logo">
       </label>
       <label>
         Store Name:
-        <input type="text" placeholder=" enter store name">
+        <input v-model="storeName" type="text" placeholder=" enter store name">
       </label>
     </div>
-    <button type="button"> Create new Store</button>
+    <button @click="addFormHandler" type="button"> Create new Store</button>
   </form>
   </div>
 </template>
@@ -23,13 +23,38 @@
 import axios from 'axios';
 import {ref, defineProps} from 'vue';
 
+const logoLink = ref('')
+const storeName = ref('')
 
 defineProps({
   isOpen: {
     required: false
   }
 })
-
+let addFormHandler = () => {
+  const userData = JSON.parse(localStorage.getItem('user-data'))
+  console.log('it works')
+  axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/add-store', {
+    userId: userData._id,
+    newStore: {
+      title: storeName,
+      logo: logoLink,
+      pages: [],
+    }
+  })
+      .then(function (response) {
+        const userData = response.data;
+        console.log(userData)
+        if (userData) {
+          localStorage.setItem('user-data', JSON.stringify(userData));
+        } else {
+          console.log("err send queries")
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
 </script>
 

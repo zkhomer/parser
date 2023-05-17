@@ -13,6 +13,6 @@ router.use(cors({
 router.get('/allUsers',getAllUsers);
 router.post('/user-login', loginController);
 router.post('/api', categoryDataController);
-router.patch('/add-store', addStoreController)
+router.post('/add-store', addStoreController)
 
 module.exports = router;
