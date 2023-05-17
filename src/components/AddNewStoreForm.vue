@@ -53,7 +53,7 @@ let addFormHandler = () => {
         console.log(userData)
         if (userData) {
           localStorage.setItem('user-data', JSON.stringify(userData));
-          fetchUserData(); // Обновление данных в leftMenu после успешного добавления магазина
+          fetchUserData();
         } else {
           console.log("Error sending request");
         }
