@@ -1,13 +1,12 @@
 <template>
-  <AddNewStoreForm :isOpen="formHandler" v-show="isAddForm" />
+  <AddNewStoreForm :fetchUserData="fetchUserData" :isOpen="formHandler" v-show="isAddForm" />
   <div class="leftMenu__nav-wrapper">
     <nav>
       <ul>
         <li @click="formHandler" class="add">
           <div>+</div>
         </li>
-        <li @click="()=> listHandler(store)" v-if="storeList[0]?.storeBox" v-for="store of storeList[0].storeBox"
-            :key="store.id">
+        <li @click="() => listHandler(store)" v-if="storeList[0]?.storeBox" v-for="store of storeList[0].storeBox" :key="store.id">
           <img class="list-img" :src="store.logo" alt="">
           <span>{{ store.title }}</span>
         </li>
@@ -18,52 +17,47 @@
 </template>
 
 <script setup>
-import {onMounted, defineProps, ref, watch} from 'vue';
-import {useStore} from '../store';
-import {storeToRefs} from 'pinia'
+import { onMounted, ref, watch } from 'vue';
+import { useStore } from '../store';
 import { useRouter } from 'vue-router';
-import AddNewStoreForm from  '../components/AddNewStoreForm.vue'
+import AddNewStoreForm from '../components/AddNewStoreForm.vue';
 
-let storeList = ref([]);
-let itemData = ref([])
-let isAddForm = ref(false)
+const storeList = ref([]);
+const itemData = ref([]);
+const isAddForm = ref(false);
 const parserStore = useStore();
 const router = useRouter();
-const userData = ref(localStorage.getItem('user-data'));
 
 onMounted(async () => {
   await fetchUserData();
 });
 
-
-watch(userData, async () => {
-  await fetchUserData()
-
+watch(() => localStorage.getItem('user-data'), async (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    await fetchUserData();
+  }
 });
 
-const logoutHandler = ()=>{
-  localStorage.setItem('user-data', '')
+const logoutHandler = () => {
+  localStorage.setItem('user-data', '');
   router.push({ name: 'login-page' });
+};
 
-}
-
-const formHandler = () =>{
-  isAddForm.value = !isAddForm.value
-}
-
-
+const formHandler = () => {
+  isAddForm.value = !isAddForm.value;
+};
 
 const listHandler = (item) => {
-  itemData.value = item.pages
-  parserStore.setCurrentStore(item)
+  itemData.value = item.pages;
+  parserStore.setCurrentStore(item);
   router.push({ name: 'pages' });
-}
+};
 
 const fetchUserData = async () => {
   try {
     const userData = await parserStore.fetchUserData();
     if (userData) {
-      storeList.value.push(userData);
+      storeList.value = [userData];
     } else {
       console.error('User data is null');
     }
@@ -71,6 +65,7 @@ const fetchUserData = async () => {
     console.error('Error sending query:', error);
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -80,6 +75,7 @@ const fetchUserData = async () => {
   max-width: 300px;
   transition: 0.4s ease-in;
   min-height: 100vh;
+
   @media (min-width: 768px) {
     min-width: 250px;
   }
