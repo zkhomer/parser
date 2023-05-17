@@ -28,7 +28,7 @@ const addStoreController = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        user.storeBox.push(newStore);
+        user.storBox.push(newStore);
 
         await user.save();
 
