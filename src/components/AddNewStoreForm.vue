@@ -58,7 +58,7 @@ let addFormHandler = () => {
       .catch(function (error) {
         console.log(error);
       });
-  isOpen()
+  this.isOpen()
 };
 
 
