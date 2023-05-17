@@ -1,7 +1,6 @@
 <template>
   <div class="add-form__wrapper">
-
-  <form class="add-form">
+    <form class="add-form">
     <button class="add-form__close-btn" type="button" @click="isOpen">X</button>
     <h1>add new Store</h1>
     <div class="add-form__input-group">
@@ -28,6 +27,9 @@ const storeName = ref('')
 
 defineProps({
   isOpen: {
+    required: false
+  },
+  loadData:{
     required: false
   }
 })
@@ -56,6 +58,7 @@ let addFormHandler = () => {
       .catch(function (error) {
         console.log(error);
       });
+  isOpen()
 };
 
 

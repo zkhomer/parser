@@ -6,7 +6,7 @@
         <li @click="formHandler" class="add">
           <div>+</div>
         </li>
-        <li @click="()=> listHandler(store)" v-if="storeList[0]?.storBox" v-for="store of storeList[0].storBox"
+        <li @click="()=> listHandler(store)" v-if="storeList[0]?.storeBox" v-for="store of storeList[0].storeBox"
             :key="store.id">
           <img class="list-img" :src="store.logo" alt="">
           <span>{{ store.title }}</span>
@@ -29,10 +29,16 @@ let itemData = ref([])
 let isAddForm = ref(false)
 const parserStore = useStore();
 const router = useRouter();
-
+const userData = ref(localStorage.getItem('user-data'));
 
 onMounted(async () => {
   await fetchUserData();
+});
+
+
+watch(userData, async () => {
+  await fetchUserData()
+
 });
 
 const logoutHandler = ()=>{
