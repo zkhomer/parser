@@ -39,8 +39,8 @@ let addFormHandler = () => {
   axios.post(url, {
     _id: userData._id,
     newStore: {
-      title: storeName,
-      logo: logoLink,
+      title: storeName.value,
+      logo: logoLink.value,
       pages: [],
     }
   })
