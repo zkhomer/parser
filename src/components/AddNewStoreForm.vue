@@ -31,11 +31,13 @@ defineProps({
     required: false
   }
 })
+
 let addFormHandler = () => {
-  const userData = JSON.parse(localStorage.getItem('user-data'))
-  console.log('it works')
-  axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/add-store', {
-    userId: userData._id,
+  const userData = JSON.parse(localStorage.getItem('user-data'));
+  const url = 'http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/add-store';
+
+  axios.post(url, {
+    _id: userData._id,
     newStore: {
       title: storeName,
       logo: logoLink,
@@ -48,13 +50,14 @@ let addFormHandler = () => {
         if (userData) {
           localStorage.setItem('user-data', JSON.stringify(userData));
         } else {
-          console.log("err send queries")
+          console.log("Error sending request");
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-}
+};
+
 
 </script>
 

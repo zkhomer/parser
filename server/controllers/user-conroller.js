@@ -18,26 +18,7 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-const addStoreController = async (req, res) => {
-    try {
-        const {_id, newStore } = req.body;
 
-        const user = await User.findOne({ _id: ObjectId(_id)});
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        user.storBox.push(newStore);
-
-        await user.save();
-
-        res.status(200).json(user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Server Error');
-    }
-};
 
 const loginController = async (req, res) => {
     try {
@@ -49,6 +30,28 @@ const loginController = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
+
+const addStoreController = async (req, res) => {
+    try {
+        const { _id, newStore } = req.body;
+
+        const user = await User.findOne({ _id });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        user.storeBox.push(newStore);
+
+        await user.save();
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+};
+
 
 const categoryDataController = async (req, res) => {
     try {
