@@ -20,6 +20,7 @@ import {useRouter} from 'vue-router/dist/vue-router';
 const router = useRouter();
 
 const parserStore = useStore();
+
 const { currentTargetStore } = storeToRefs(parserStore);
 
 const pagesCategories = computed(() => currentTargetStore.value)
@@ -28,6 +29,7 @@ onMounted(()=>{})
 
 const selectCategoryPageHandler = (pageCategory) =>{
   parserStore.setSelectedCategory(pageCategory)
+  console.log(pageCategory)
   router.push({ name: 'category-info' });
 
 }
