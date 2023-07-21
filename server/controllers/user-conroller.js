@@ -54,6 +54,7 @@ const categoryDataController = async (req, res) => {
     try {
         const { cardSelector, customSelectors, pageUrl } = req.body;
         const browser = await puppeteer.launch({
+            executablePath: '/usr/bin/google-chrome',
             headless: "new",
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
