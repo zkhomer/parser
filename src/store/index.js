@@ -16,7 +16,7 @@ export const useStore = defineStore({
                     return null;
                 }
                 const { login, password } = JSON.parse(userData);
-                const response = await axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/user-login', {
+                const response = await axios.post('http://localhost:3000/user-login', {
                     login,
                     password
                 });

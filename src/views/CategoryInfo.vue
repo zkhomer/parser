@@ -2,8 +2,7 @@
   <div class="wrap">
     <LeftMenu />
     <div class="category-info__wrapper">
-      <h1 class="category-info__title"
-          v-if="pagesCategories.pageUrl">
+      <h1 class="category-info__title" v-if="pagesCategories.pageUrl">
         Page link:
         <a :href="pagesCategories.pageUrl">
           {{pagesCategories.pageUrl}}
@@ -47,12 +46,20 @@ const getCategoryDataFromServer = async () => {
       return null;
     }
     const { cardSelector, customSelectors, pageUrl } = pagesCategories.value;
-    const response = await axios.post('http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/api', {
+
+    const filteredCustomSelectors = customSelectors.map(selector => {
+      const { _id, id, ...rest } = selector;
+      return rest;
+    });
+
+    const response = await axios.post('http://localhost:3000/api', {
       cardSelector,
-      customSelectors,
+      customSelectors: filteredCustomSelectors,
       pageUrl
     });
+
     productList.value = response.data.productList;
+    console.log(productList.value)
     return response.data;
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -64,20 +71,20 @@ const getCategoryDataFromServer = async () => {
 <style lang="scss" scoped>
 .wrap {
   display: flex;
-  .category-list{
+  .category-list {
     list-style: none;
     padding-left: 20px;
     text-align: left;
     display: flex;
     gap: 20px;
     flex-direction: column;
-    &__item-wrapper{
+    &__item-wrapper {
       border: 1px solid white;
       max-width: 250px;
       padding: 5px;
     }
   }
-  .category-info__title{
+  .category-info__title {
     font-size: 20px;
   }
   .product-img {
@@ -85,5 +92,4 @@ const getCategoryDataFromServer = async () => {
     max-height: 100px;
   }
 }
-
 </style>

@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const customSelectorsSchema = new Schema({
     name: String,
-    price: String
+    price: String,
+    imgUrl: String,
 });
 
 const pageSchema = new Schema({

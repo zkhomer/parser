@@ -4,7 +4,7 @@
       <div class="page-group__card-first">+</div>
       <div @click="()=>selectCategoryPageHandler(store)" class="page-group__card" v-for="store of pagesCategories.pages">
         <div class="page-group__card-wrapper">
-          {{ store.categoryName }}
+          {{ store.pageUrl }}
         </div>
       </div>
     </div>
@@ -29,7 +29,6 @@ onMounted(()=>{})
 
 const selectCategoryPageHandler = (pageCategory) =>{
   parserStore.setSelectedCategory(pageCategory)
-  console.log(pageCategory)
   router.push({ name: 'category-info' });
 
 }

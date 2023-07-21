@@ -18,11 +18,9 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-
-
 const loginController = async (req, res) => {
     try {
-        const user = await User.findOne({login: req.body.login, password: req.body.password});
+        const user = await User.findOne({ login: req.body.login, password: req.body.password });
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(user);
     } catch (err) {
@@ -52,20 +50,16 @@ const addStoreController = async (req, res) => {
     }
 };
 
-
 const categoryDataController = async (req, res) => {
     try {
-        const {cardSelector, customSelectors, pageUrl} = req.body;
+        const { cardSelector, customSelectors, pageUrl } = req.body;
         const browser = await puppeteer.launch({
-            executablePath: '/usr/bin/google-chrome',
             headless: "new",
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
-        console.log(pageUrl)
         await page.goto(pageUrl);
-
 
         const scrollPageToBottom = async (page) => {
             const distance = '1000';
@@ -78,10 +72,9 @@ const categoryDataController = async (req, res) => {
         };
         await scrollPageToBottom(page);
 
-        const products = await page.evaluate(({cardSelector, customSelectors}) => {
+        const products = await page.evaluate(({ cardSelector, customSelectors }) => {
             const productList = [];
             const productNodes = document.querySelectorAll(cardSelector);
-
 
             productNodes.forEach((productNode) => {
                 const product = {};
@@ -91,8 +84,18 @@ const categoryDataController = async (req, res) => {
                     let fieldValue = '';
 
                     if (key === 'imgUrl') {
-                        const img = productNode.querySelector(value);
-                        fieldValue = img && img.dataset.original ? img.dataset.original.trim() : '';
+                        const img = productNode.querySelector(`.${value}`);
+                        if (img) {
+                            fieldValue = img.src || '';
+                            if (!fieldValue && img.dataset && img.dataset.original) {
+                                const imageUrl = img.dataset.original.trim();
+                                // Check if the imageUrl ends with an image format, e.g., '.jpg', '.png', etc.
+                                const imageFormats = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+                                if (imageFormats.some(format => imageUrl.endsWith(format))) {
+                                    fieldValue = imageUrl;
+                                }
+                            }
+                        }
                     } else {
                         const element = productNode.querySelector(`.${value}`);
                         fieldValue = element ? element.textContent.trim() : '';
@@ -104,8 +107,8 @@ const categoryDataController = async (req, res) => {
                 productList.push(product);
             });
 
-            return {productList};
-        }, {cardSelector, customSelectors});
+            return { productList };
+        }, { cardSelector, customSelectors });
 
         await browser.close();
         res.send(products);

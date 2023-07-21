@@ -37,7 +37,7 @@ const { isOpen, fetchUserData } = defineProps({
 
 let addFormHandler = () => {
   const userData = JSON.parse(localStorage.getItem('user-data'));
-  const url = 'http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/add-store';
+  const url = 'http://localhost:3000/add-store';
 
   axios
       .post(url, {
