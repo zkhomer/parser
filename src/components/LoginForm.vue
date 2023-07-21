@@ -30,7 +30,7 @@ const password = ref('')
 const isError = ref(false)
 
 let loginHandler = () => {
-  axios.post('http://localhost:3000/user-login', {
+  axios.post('http://http://ec2-16-170-86-192.eu-north-1.compute.amazonaws.com/user-login', {
     login: login.value,
     password: password.value,
   })
