@@ -63,7 +63,9 @@ const categoryDataController = async (req, res) => {
         });
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
+        console.log(pageUrl)
         await page.goto(pageUrl);
+
 
         const scrollPageToBottom = async (page) => {
             const distance = '1000';
