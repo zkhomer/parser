@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/usersbox')
 const userRoutes = require('../server/routes/user-routs');
 app.use(userRoutes);
 
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
