@@ -1,8 +1,22 @@
+import {useEffect, FC, useState, useRef} from "react";
 
-const Footer = () => {
-    const a:number = 4;
+interface testProps {
+    content: string
+    clear: () => void
+}
+
+const Footer: FC<testProps> = (testProps) => {
     return (
-        <h1>hello {a} </h1>
+        <>
+            <h1>
+                hello, {testProps.content || "type any text"}
+            </h1>
+            <button
+                onClick={ testProps.clear }
+            >
+                clear
+            </button>
+        </>
     )
 }
 
