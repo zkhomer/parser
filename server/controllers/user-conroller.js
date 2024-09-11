@@ -10,7 +10,7 @@ app.use(cors());
 const getAllUsers = async (req, res) => {
 
     try {
-        const users = await User.find({});
+        const users = await User.find({} );
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(users);
     } catch (err) {
