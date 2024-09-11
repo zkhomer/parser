@@ -46,6 +46,6 @@ const userSchema = new Schema({
         required: true
     },
     storeBox: [storeBoxSchema]
-});
+}, { collection: 'usersbox' });
 
 module.exports = mongoose.model('User', userSchema);

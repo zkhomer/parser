@@ -8,6 +8,7 @@ const app = express();
 app.use(cors());
 
 const getAllUsers = async (req, res) => {
+
     try {
         const users = await User.find({});
         res.setHeader('Content-Type', 'application/json');
