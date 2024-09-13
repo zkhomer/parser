@@ -39,9 +39,6 @@ const App: React.FC = () => {
                 content={test}
                 clear={clear}
             />
-            <input className={"border-2"} value={test} type="text"/>
-            <button className={"border-2 bg-green-700"} onClick={()=>clearData()}>clear Data</button>
-            <button className={"border-2"} onClick={()=>changeHandler()}>ololo change text</button>
             <button onClick={() => console.log(data)}>check</button>
             {data.map(({name, _id}) => <p key={_id}> name: {name} id: {_id}</p>)}
         </>
