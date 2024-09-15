@@ -19,7 +19,7 @@ const reducer = (prevState = initialState, action: Action): State => {
         case "change":
             return {
                 ...prevState,
-                data: prevState.data + 'asdadsadasdasd'
+                data: prevState.data + 'asd'
             }
         case "clearData": {
             return {

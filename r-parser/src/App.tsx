@@ -29,7 +29,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
             checkData()
-            console.log('loloo')
+            console.log('lolo')
         },
         [])
 
