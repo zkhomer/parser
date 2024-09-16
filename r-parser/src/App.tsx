@@ -6,7 +6,7 @@ import React, {} from "react";
 
 const App: React.FC = () => {
     return (
-        <div className="app-wrapper container m-auto px-5 min-h-screen flex flex-col">
+        <div className="app-wrapper min-h-screen flex flex-col">
             <Header/>
             <Footer content="adsad"/>
         </div>
