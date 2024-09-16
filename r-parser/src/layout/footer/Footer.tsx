@@ -2,22 +2,15 @@ import { FC } from "react";
 
 interface testProps {
     content: string
-    clear: () => void
 }
 
-const Footer: FC<testProps> = ({content, clear}) => {
+const Footer: FC<testProps> = ({content}) => {
     return (
-        <>
+        <footer className="footer bg-gray-200 p-4 text-center mt-auto">
             <h1>
                 hello, {content || "type any text" }
             </h1>
-            <button
-                className={ 'bg-amber-200 border-blue-800 border-2' }
-                onClick={ clear }
-            >
-                clear
-            </button>
-        </>
+        </footer>
     )
 }
 
