@@ -1,7 +1,8 @@
-import Footer from "./layout/footer/footer.tsx"
-import './App.css'
+import Footer from "./layout/footer/Footer.tsx"
+import Header from "./layout/header/Header.tsx"
+import './App.scss'
 import React, {useEffect, useState} from "react";
-import {store} from "./store/store.ts";
+import { store } from "./store/store.ts";
 
 const App: React.FC = () => {
     const [test, setTest] = useState<string>(store.getState().data)
@@ -18,14 +19,6 @@ const App: React.FC = () => {
         setData(result)
 
     };
-    const changeHandler = ()=>{
-        store.dispatch({type:"change"})
-        setTest(store.getState().data)
-    }
-    const clearData = () =>{
-        store.dispatch({type:"clearData"})
-        setTest(store.getState().data)
-    }
 
     useEffect(() => {
             checkData()
@@ -35,6 +28,7 @@ const App: React.FC = () => {
 
     return (
         <>
+            <Header/>
             <Footer
                 content={test}
                 clear={clear}
