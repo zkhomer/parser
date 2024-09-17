@@ -6,7 +6,7 @@ interface titleContentProps{
 
 const Title:FC<titleContentProps> = ({titleContent}) => {
     return(
-        <h1 className={"main-title text-6xl"}>
+        <h1 className={"main-Title text-6xl"}>
             { titleContent }
         </h1>
     );
