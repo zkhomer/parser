@@ -10,7 +10,7 @@ const NavBar: FC<navProps> = ({ menuItems }) => {
                 {
                     menuItems.length ? menuItems.map((navItem) => (
                             <li className="nav-list-item mr-2" key={Date.now() + Math.random()}>
-                                <NavLink to={`/${navItem}`}>
+                                <NavLink to={`/${navItem.toLowerCase()}`}>
                                     { navItem }
                                 </NavLink>
                             </li>
