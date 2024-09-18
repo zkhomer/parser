@@ -13,7 +13,7 @@ const HeroSection:FC = () => {
                 />
                 <div className="hero_description-content-wrapper">
                     <p className="hero_description-content-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam. → → →
                     </p>
                 </div>
                 <NavBar menuItems={['hello', 'item1', "qweqweqweq"]}/>
