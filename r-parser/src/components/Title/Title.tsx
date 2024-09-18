@@ -1,12 +1,11 @@
 import {FC} from "react";
+import {titleComponentProps} from "../../../type /interfaces.ts";
 
-interface titleContentProps{
-    titleContent: string
-}
 
-const Title:FC<titleContentProps> = ({titleContent}) => {
+
+const Title:FC<titleComponentProps> = ({titleContent, modificationClass}) => {
     return(
-        <h1 className={"main-Title text-6xl"}>
+        <h1 className={`main-Title text-6xl ${modificationClass}`}>
             { titleContent }
         </h1>
     );
