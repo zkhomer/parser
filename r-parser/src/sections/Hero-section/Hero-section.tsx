@@ -16,7 +16,7 @@ const HeroSection:FC = () => {
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam. → → →
                     </p>
                 </div>
-                <NavBar menuItems={['hello', 'item1', "qweqweqweq"]}/>
+                <NavBar menuItems={['hello→', 'item1→', "item 3→"]}/>
                 <div className="hero_grid-wrapper">
                     <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
                         <div className="flex flex-col-reverse">
