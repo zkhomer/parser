@@ -1,6 +1,5 @@
 import {FC} from "react";
 import Title from "../../components/Title/Title.tsx";
-import NavBar from "../../components/NavBar/NavBar.tsx";
 
 const HeroSection:FC = () => {
     return (
@@ -13,15 +12,11 @@ const HeroSection:FC = () => {
                 />
                 <div className="hero_description-content-wrapper">
                     <p className="hero_description-content-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam. → → →
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam. → → →
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam. → → →
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi atque dolores ipsa ipsum pariatur perspiciatis quae sunt totam veniam. → → →
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet animi architecto aspernatur assumenda commodi consequuntur corporis cum dolorem doloremque ducimus eaque enim excepturi explicabo fuga illo illum magni maxime natus nesciunt nostrum nulla obcaecati officiis perferendis provident quae, quaerat saepe sed sequi similique sit suscipit tempora totam ullam ut voluptates, voluptatum? Accusamus adipisci animi atque aut consequatur dignissimos dolores, est maiores molestiae odio odit pariatur possimus saepe. Aspernatur deserunt ea esse minima voluptatum. Amet animi culpa dignissimos distinctio doloribus enim excepturi expedita id iste, modi nesciunt officiis perspiciatis porro quas quibusdam quidem quo reprehenderit sint, unde voluptate. A accusamus aliquam amet distinctio eius error exercitationem facilis harum illo ipsam laborum laudantium magni minus natus nemo, officia provident quisquam quo ratione reiciendis rerum sit temporibus vel velit voluptatibus! Accusamus asperiores at blanditiis est eveniet laboriosam modi molestiae necessitatibus obcaecati, officiis optio reprehenderit repudiandae rerum sapiente sit soluta, tempora, vel voluptates voluptatibus voluptatum? Adipisci aperiam autem cupiditate deleniti ducimus eius enim explicabo inventore ipsum iure iusto laboriosam laudantium nulla numquam, odit perferendis quis suscipit velit voluptas voluptate! Adipisci consectetur, cum deserunt est eum expedita incidunt ipsa iusto modi, nulla quo unde ut velit veritatis voluptate. Accusantium consequatur delectus excepturi facilis ipsum!
                     </p>
                 </div>
-                <NavBar menuItems={['hello→', 'item1→', "item 3→"]}/>
                 <div className="hero_grid-wrapper">
-                    <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
+                    <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4 ">
                         <div className="flex flex-col-reverse">
                             <dt className="text-base leading-7 text-gray-300">Offices worldwide</dt>
                             <dd className="text-2xl font-bold leading-9 tracking-tight text-white">12</dd>

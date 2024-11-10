@@ -2,6 +2,30 @@
   position: sticky;
   z-index: 99;
   top: 0;
-  border: 1px solid red;
-  background-color: rgba(24, 24, 68, 0.7);
+  background-color: rgba(196, 196, 213, 0.7);
+
+
+  .nav-burger{
+    .burger-btn{display: none}
+    @media (max-width: 768px) {
+      .burger-btn{display: block}
+      .nav-list{
+        position: absolute;
+        left: -9999px;
+      }
+      .nav-list--open{
+        display: flex!important;
+        position: absolute;
+        left: 0!important;
+        flex-grow: revert;
+        flex-direction: column;
+        min-height: 100vh;
+        background: red;
+        width: 100%;
+        top: 100%;
+        transition: left 0.3s;
+      }
+    }
+  }
+
 }

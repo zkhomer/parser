@@ -1,10 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit'
 
-
 type State = {
     data: string;
 }
-
 type changeData = {
     type: "change"
 }
