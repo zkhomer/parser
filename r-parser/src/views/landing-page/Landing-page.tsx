@@ -3,13 +3,13 @@ import HeroSection from "../../sections/Hero-section/Hero-section.tsx";
 import AboutSection from "../../sections/About-section/About-section.tsx";
 
 const LandingPage:FC = () =>{
-
+const content:string = "this is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is descriptionthis is description"
     return (
       <>
           <HeroSection/>
           <AboutSection
-            title= {'this is title'}
-            description= {'this is description'}
+            title= {'About Us'}
+            description={content}
           />
       </>
     );

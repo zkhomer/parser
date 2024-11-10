@@ -6,24 +6,30 @@
 
 
   .nav-burger{
-    .burger-btn{display: none}
+    .burger-btn {
+      display: none
+    }
     @media (max-width: 768px) {
-      .burger-btn{display: block}
+      .burger-btn{
+        display: block
+      }
       .nav-list{
         position: absolute;
         left: -9999px;
       }
       .nav-list--open{
-        display: flex!important;
+        display: flex;
         position: absolute;
-        left: 0!important;
+        padding: 10px 20px;
+        left: 0;
         flex-grow: revert;
         flex-direction: column;
         min-height: 100vh;
-        background: red;
+        background: hsla(252,13%,46%,1);
         width: 100%;
         top: 100%;
         transition: left 0.3s;
+        font-size: 20px;
       }
     }
   }

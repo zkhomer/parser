@@ -5,14 +5,13 @@ import {NavLink} from "react-router-dom";
 const NavBar: FC<navProps> = ({ menuItems }) => {
 const [burgerToggle, setBurgerToggle] = useState(false)
 
-const burgerToggler = ()=>{
+const burgerToggles = ()=>{
     setBurgerToggle(!burgerToggle)
-    console.log(burgerToggle)
 }
 
     return(
         <nav className="nav nav-burger">
-            <button className={`burger-btn`} onClick={burgerToggler}>{ !burgerToggle ? 'open' : 'close'}</button>
+            <button className={`burger-btn`} onClick={burgerToggles}>{ !burgerToggle ? 'open' : 'close'}</button>
             <ul className={`nav-list flex ${ burgerToggle ? 'nav-list--open' : ''}`}>
                 {
                     menuItems.length ? menuItems.map((navItem) => (
